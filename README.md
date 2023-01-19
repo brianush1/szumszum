@@ -10,7 +10,7 @@ how2use:
 * ????
 * profit
 
-(if the `../szumszum.jar` command doesn't work, try `java -jar szumszum.jar`)\
+(if the `../szumszum.jar` command doesn't work, try `java -jar ../szumszum.jar`)\
 (if it still doesn't work, ping me on discord for help @brianush1#4894)
 
 alternative usage method:
