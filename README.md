@@ -4,7 +4,7 @@ Use this to test your homework code for Szumlanski's CS 2 class Spring 2023
 
 how2use:
 
-* step 1. download szumszum.jar somewhere (I put it in the folder that contains my `SneakyQueens` folder)
+* step 1. [download szumszum.jar](https://github.com/brianush1/szumszum/raw/master/szumszum.jar) somewhere (I put it in the folder that contains my `SneakyQueens` folder)
 * step 2. run `../szumszum.jar` in the folder that has the test-all.sh script
 * ????
 * profit
