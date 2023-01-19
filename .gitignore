@@ -1,0 +1,12 @@
+.vscode
+bin
+
+# The secret directory contains information that could leak
+# problem solutions, which is why it's ignored
+
+# The secret directory is where all the test case generation
+# code lives
+
+secret
+build-secret
+szumszum-secret.jar

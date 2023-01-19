@@ -1,0 +1,18 @@
+#!/bin/bash
+
+rm -rf bin
+mkdir -p bin
+
+javac -cp source -d bin source/szumszum/Szumszum.java source/szumszum/checkers/*.java
+jar --create \
+	--file szumszum.jar \
+	--main-class=szumszum.Szumszum \
+	-C bin/ .
+chmod +x szumszum.jar
+
+if grep secret szumszum.jar; then
+
+	echo "SOMETHING HORRIBLY WRONG HAS HAPPENED"
+	echo "CHECK OUTPUT MANUALLY"
+
+fi
