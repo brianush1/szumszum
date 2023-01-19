@@ -454,9 +454,30 @@ public class RunTests implements IStage {
 				numTestsRun += 1;
 				numCases += 1;
 
+				ByteArrayOutputStream output = new ByteArrayOutputStream();
+				System.setOut(new PrintStream(output, false, StandardCharsets.UTF_8));
+				System.setErr(new PrintStream(output, false, StandardCharsets.UTF_8));
+
 				RunTestResult result = runTest(group.timeLimitPerCase, group.subCases[i]);
 				Status success = result.success;
 				latestExplanation = result.explanation;
+
+				if (output.size() != 0) {
+					if (success == Status.PASS) {
+						success = Status.FAIL;
+						latestExplanation = "Correct answer produced, with extraneous output:\n" + output.toString(StandardCharsets.UTF_8);
+					}
+					else {
+						String msg = "Extraneous output:\n" + output.toString(StandardCharsets.UTF_8);
+
+						if (latestExplanation == null) {
+							latestExplanation = msg;
+						}
+						else {
+							latestExplanation = latestExplanation + "\n" + msg;
+						}
+					}
+				}
 
 				if (success == Status.PASS) {
 					passed += 1;
