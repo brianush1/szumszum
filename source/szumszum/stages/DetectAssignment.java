@@ -3,6 +3,7 @@ package szumszum.stages;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import szumszum.Status;
@@ -19,8 +20,14 @@ public class DetectAssignment implements IStage {
 	public boolean run() {
 		Terminal.enterStage("Detecting assignment name");
 
-		if (Terminal.getArgs().length == 1) {
-			assignment = Terminal.getArgs()[0];
+		ArrayList<String> files = new ArrayList<>();
+		for (String arg : Terminal.getArgs()) {
+			if (!arg.startsWith("--")) {
+				files.add(arg);
+			}
+		}
+		if (files.size() > 0) {
+			assignment = files.get(0);
 			Terminal.updateStatus(Status.DONE, "Manually specified: \u001B[3m" + assignment + "\u001B[0m");
 			Terminal.exitStage();
 
@@ -59,7 +66,7 @@ public class DetectAssignment implements IStage {
 		}
 
 		Terminal.updateStatus(Status.FAIL, "Could not detect assignment name from test-all.sh, please specify manually:"
-			+ "\n    ./szumszum.jar AssignmentName");
+			+ "\n    szumszum.jar AssignmentName");
 		Terminal.exitStage();
 
 		return false;

@@ -462,6 +462,28 @@ public class RunTests implements IStage {
 				Status success = result.success;
 				latestExplanation = result.explanation;
 
+				if (success != Status.PASS) { // wrong answer
+					String stringified = Arrays.deepToString(group.subCases[i].args);
+
+					String msg;
+
+					if (stringified.length() > 5000 && !Terminal.hasArg("--verbose")) {
+						msg = "Large case data not shown; re-run as szumszum.jar --verbose to see all case data";
+					}
+					else {
+						msg = "Called " + group.subCases[i].methodName
+							+ " with arguments:\n";
+						msg += stringified;
+					}
+
+					if (latestExplanation == null) {
+						latestExplanation = msg;
+					}
+					else {
+						latestExplanation = msg + "\n" + latestExplanation;
+					}
+				}
+
 				if (output.size() != 0) {
 					if (success == Status.PASS) {
 						success = Status.FAIL;

@@ -1,6 +1,7 @@
 package szumszum;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class Terminal {
 
@@ -12,6 +13,10 @@ public class Terminal {
 
 	public static String[] getArgs() {
 		return args;
+	}
+
+	public static boolean hasArg(String arg) {
+		return Arrays.asList(args).contains(arg);
 	}
 
 	public static void initialize(String[] args) {
