@@ -1,5 +1,7 @@
 # Szumszum test case runner
 
+![Screenshot](screenshot.png)
+
 Use this to test your homework code for Szumlanski's CS 2 class Spring 2023
 
 how2use:
