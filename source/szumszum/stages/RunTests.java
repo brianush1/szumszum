@@ -494,9 +494,11 @@ public class RunTests implements IStage {
 					}
 				}
 
+				boolean continueAnyway = false;
 				if (output.size() != 0) {
 					if (success == Status.PASS) {
 						success = Status.FAIL;
+						continueAnyway = true;
 						latestExplanation = "Correct answer produced, with extraneous output:\n" + output.toString(StandardCharsets.UTF_8);
 					}
 					else {
@@ -521,7 +523,7 @@ public class RunTests implements IStage {
 					failed += 1;
 				}
 
-				if (success != Status.PASS) {
+				if (success != Status.PASS && (!continueAnyway || i == group.subCases.length - 1)) {
 					overallSuccess = success;
 
 					break;
