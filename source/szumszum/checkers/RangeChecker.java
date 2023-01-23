@@ -28,4 +28,20 @@ public class RangeChecker implements IOutputChecker, Serializable {
 						: (doubleValue >= maxValue)));
 	}
 
+	public String toString() {
+		String result = "number ";
+		if (minValue > Double.NEGATIVE_INFINITY) {
+			if (minInclusive) result += ">="; else result += ">";
+			result += " " + minValue;
+		}
+		if (minValue > Double.NEGATIVE_INFINITY && maxValue < Double.POSITIVE_INFINITY) {
+			result += ", ";
+		}
+		if (maxValue < Double.POSITIVE_INFINITY) {
+			if (maxInclusive) result += "<="; else result += "<";
+			result += " " + maxValue;
+		}
+		return result;
+	}
+
 }

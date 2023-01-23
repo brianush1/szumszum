@@ -21,4 +21,8 @@ public class EqualityChecker implements IOutputChecker, Serializable {
 		}
 	}
 
+	public String toString() {
+		return expectedValue.toString();
+	}
+
 }

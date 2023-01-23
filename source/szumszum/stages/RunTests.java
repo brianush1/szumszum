@@ -256,6 +256,7 @@ public class RunTests implements IStage {
 	private class RunTestResult {
 		Status success;
 		String explanation;
+		Object returnValue;
 	}
 
 	private RunTestResult runTest(double timeLimit, TestCase test) {
@@ -283,6 +284,7 @@ public class RunTests implements IStage {
 
 		Future<TestResult> future = null;
 
+		Object _returnValue = null;
 		try {
 			future = service.submit(() -> {
 				try {
@@ -329,11 +331,14 @@ public class RunTests implements IStage {
 				if (explanation.length() > 0)
 					explanation = explanation.substring(1);
 			}
-			else if (test.returnChecker.check(result.result)) {
-				success = Status.PASS;
-			}
 			else {
-				success = Status.FAIL;
+				_returnValue = result.result;
+				if (test.returnChecker.check(result.result)) {
+					success = Status.PASS;
+				}
+				else {
+					success = Status.FAIL;
+				}
 			}
 		}
 		catch (TimeoutException ex) {
@@ -353,6 +358,7 @@ public class RunTests implements IStage {
 		RunTestResult result = new RunTestResult();
 		result.success = success;
 		result.explanation = explanation;
+		result.returnValue = _returnValue;
 		return result;
 	}
 
@@ -474,6 +480,10 @@ public class RunTests implements IStage {
 						msg = "Called " + group.subCases[i].methodName
 							+ " with arguments:\n";
 						msg += stringified;
+						msg += "\nExpected output: ";
+						msg += group.subCases[i].returnChecker.toString();
+						msg += "\nYour solution's output: ";
+						msg += result.returnValue.toString();
 					}
 
 					if (latestExplanation == null) {
