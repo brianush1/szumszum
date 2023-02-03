@@ -2,7 +2,6 @@ package szumszum.stages;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintStream;
@@ -483,7 +482,12 @@ public class RunTests implements IStage {
 						msg += "\nExpected output: ";
 						msg += group.subCases[i].returnChecker.toString();
 						msg += "\nYour solution's output: ";
-						msg += result.returnValue.toString();
+						if (result.returnValue == null) {
+							msg += "ERROR";
+						}
+						else {
+							msg += result.returnValue.toString();
+						}
 					}
 
 					if (latestExplanation == null) {
