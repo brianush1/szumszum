@@ -408,6 +408,9 @@ public class RunTests implements IStage {
 
 		Terminal.addSpacing();
 
+		Benchmark.instance.run();
+		double scaleFactor = Benchmark.instance.scaleFactor();
+
 		int numCases = 0;
 		int passed = 0, failed = 0, timedOut = 0;
 
@@ -463,7 +466,7 @@ public class RunTests implements IStage {
 				System.setOut(new PrintStream(output, false, StandardCharsets.UTF_8));
 				System.setErr(new PrintStream(output, false, StandardCharsets.UTF_8));
 
-				RunTestResult result = runTest(group.timeLimitPerCase, group.subCases[i]);
+				RunTestResult result = runTest(group.timeLimitPerCase * scaleFactor, group.subCases[i]);
 				Status success = result.success;
 				latestExplanation = result.explanation;
 
@@ -539,7 +542,7 @@ public class RunTests implements IStage {
 			if (group.subCases.length > 1) {
 				Terminal.enterStage(header + group.name
 					+ (overallSuccess == Status.TIME
-						? String.format(" (took over %.3fs)", group.timeLimitPerCase / 1000.0)
+						? String.format(" (took over %.3fs)", group.timeLimitPerCase * scaleFactor / 1000.0)
 						: String.format(" (took %.3fs on average)", (endTime - startTime)
 							/ (double) numTestsRun / 1_000_000_000.0))
 				);
@@ -558,7 +561,7 @@ public class RunTests implements IStage {
 			else {
 				Terminal.enterStage(header + group.name
 					+ (overallSuccess == Status.TIME
-						? String.format(" (took over %.3fs)", group.timeLimitPerCase / 1000.0)
+						? String.format(" (took over %.3fs)", group.timeLimitPerCase * scaleFactor / 1000.0)
 						: String.format(" (took %.3fs)", (endTime - startTime) / 1_000_000_000.0))
 				);
 				Terminal.updateStatus(overallSuccess, latestExplanation);

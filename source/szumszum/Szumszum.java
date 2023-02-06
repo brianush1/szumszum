@@ -1,4 +1,5 @@
 package szumszum;
+import szumszum.stages.Benchmark;
 import szumszum.stages.DetectAssignment;
 import szumszum.stages.IStage;
 import szumszum.stages.RunTests;
@@ -9,6 +10,7 @@ public class Szumszum {
 		Terminal.initialize(args);
 
 		IStage[] stages = {
+			Benchmark.instance = new Benchmark(),
 			new DetectAssignment(),
 			new RunTests()
 		};
